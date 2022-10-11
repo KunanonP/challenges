@@ -1,0 +1,16 @@
+# Staging values for nginx-ingressgateway.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+
+nameOverride: nginx-gateway
+fullnameOverride: nginx-gateway
+
+replicaCount: 1
+
+image:
+  repository: brightk/brightapp
+  pullPolicy: IfNotPresent
+  # Overrides the image tag whose default is the chart appVersion.
+  tag: "latest"
+
+imagePullSecrets: []

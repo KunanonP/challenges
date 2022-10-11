@@ -4,6 +4,7 @@ pipeline{
 
 	environment {
 		DOCKERHUB_CREDENTIALS=credentials('141a1b59-0bb2-44bc-a5fa-f3bc5e89beee')
+    SHORT_COMMIT="${GIT_COMMIT[0..7]}"
 	}
 
 	stages {
@@ -11,7 +12,7 @@ pipeline{
 		stage('Build') {
 
 			steps {
-				sh 'docker build -t brightk/brightapp:latest ci-cd-pipeline/.'
+				sh 'docker build -t brightk/brightapp:$SHORT_COMMIT ci-cd-pipeline/.'
 			}
 		}
 
@@ -25,7 +26,16 @@ pipeline{
 		stage('Push') {
 
 			steps {
-				sh 'docker push brightk/brightapp:latest'
+				sh 'docker push brightk/brightapp:$SHORT_COMMIT'
+			}
+		}
+
+    stage('Deploy') {
+
+			steps {
+				sh 'cat values.yaml'
+        sh 'sed -i "s/tag:\s\w*/tag:\ $SHORT_COMMIT/g" values.yaml'
+        sh 'helm upgrade nginx . -f values.yaml'
 			}
 		}
 	}
