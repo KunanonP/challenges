@@ -1,4 +1,5 @@
 FROM nginx:alpine
+WORKDIR "/ci-cd-pipeline"
 RUN chmod g+rwx /var/cache/nginx/ /var/run /var/log/nginx
 COPY ./html /var/www/
 COPY nginx.conf /etc/nginx/nginx.conf
