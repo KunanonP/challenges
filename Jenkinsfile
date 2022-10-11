@@ -11,7 +11,7 @@ pipeline{
 		stage('Build') {
 
 			steps {
-				sh 'docker build -t brightk/brightapp:latest .'
+				sh 'docker build -t brightk/brightapp:latest ci-cd-pipeline/.'
 			}
 		}
 
