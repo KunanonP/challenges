@@ -9,40 +9,40 @@ pipeline{
 
 	stages {
 
-		stage('Build') {
+		// stage('Build') {
 
-			steps {
-				sh 'docker build -t brightk/brightapp:$SHORT_COMMIT ci-cd-pipeline/.'
-			}
-		}
+		// 	steps {
+		// 		sh 'docker build -t brightk/brightapp:$SHORT_COMMIT ci-cd-pipeline/.'
+		// 	}
+		// }
 
-		stage('Login') {
+		// stage('Login') {
 
-			steps {
-				sh 'echo $DOCKERHUB_CREDENTIALS_PSW | docker login -u $DOCKERHUB_CREDENTIALS_USR --password-stdin'
-			}
-		}
+		// 	steps {
+		// 		sh 'echo $DOCKERHUB_CREDENTIALS_PSW | docker login -u $DOCKERHUB_CREDENTIALS_USR --password-stdin'
+		// 	}
+		// }
 
-		stage('Push') {
+		// stage('Push') {
 
-			steps {
-				sh 'docker push brightk/brightapp:$SHORT_COMMIT'
-			}
-		}
+		// 	steps {
+		// 		sh 'docker push brightk/brightapp:$SHORT_COMMIT'
+		// 	}
+		// }
 
     stage('Deploy') {
 
 			steps {
-        sh('cat ../values.yaml | sed -i "s/tag: /tag: $SHORT_COMMIT/g" ../values.yaml')
-        sh 'helm upgrade nginx . -f ../values.yaml'
+        // sh 'cat ../values.yaml | sed -i "s/tag: /tag: $SHORT_COMMIT/g" ../values.yaml | helm upgrade nginx . -f ../values.yaml'
+        echo '${FILES_LIST}'
 			}
 		}
 	}
 
-	post {
-		always {
-			sh 'docker logout'
-		}
-	}
+	// post {
+	// 	always {
+	// 		sh 'docker logout'
+	// 	}
+	// }
 
 }
