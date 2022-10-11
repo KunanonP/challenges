@@ -33,8 +33,8 @@ pipeline{
     stage('Deploy') {
 
 			steps {
-        // sh 'cat ../values.yaml | sed -i "s/tag: /tag: $SHORT_COMMIT/g" ../values.yaml | helm upgrade nginx . -f ../values.yaml'
-        sh('./deployment.sh')
+        sh 'cat ../values.yaml | sed -i "s/tag: /tag: $SHORT_COMMIT/g" ../values.yaml | helm upgrade nginx . -f ../values.yaml'
+        // sh('./deployment.sh')
 			}
 		}
 	}
