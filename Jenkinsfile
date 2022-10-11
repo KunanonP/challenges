@@ -34,8 +34,7 @@ pipeline{
 
 			steps {
         // sh 'cat ../values.yaml | sed -i "s/tag: /tag: $SHORT_COMMIT/g" ../values.yaml | helm upgrade nginx . -f ../values.yaml'
-        // echo '${FILES_LIST}'
-        sh 'cat ci-cd-pipeline/values.yaml'
+        def b = sh(script: "cat values.yaml", returnStdout: true)
 			}
 		}
 	}
